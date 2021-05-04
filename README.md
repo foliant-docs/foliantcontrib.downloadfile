@@ -41,7 +41,7 @@ downloadfile:
 `password`
 :   password for basic authentication.
 
->> **Warning:** don't store plain text passwords in foliant.yml. Use [environment variables](https://foliant-docs.github.io/docs/config/#env).
+> **Warning:** don't store plain text passwords in foliant.yml. Use [environment variables](https://foliant-docs.github.io/docs/config/#env).
 
 
 ### `!download` YAML tag
