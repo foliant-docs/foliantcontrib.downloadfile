@@ -18,6 +18,7 @@ To configure DownloadFile add the following section to your foliant.yml file:
 
 ```yaml
 downloadfile:
+    fail_fast: true
     queue:
         - url: https://example.com/image.png  # required
           save_to: images/img1.png
@@ -25,6 +26,10 @@ downloadfile:
           password: qwerty123
         - ...
 ```
+
+`fail_fast`
+:   When `true`, build will be stopped if any file can't be downloaded. If `false` ­— unavailable files will be just skipped. Default: `true`.
+
 
 `queue`
 :   list of files to download. Each file is represented by a dictionary with the following fields:
@@ -46,7 +51,7 @@ downloadfile:
 
 ### `!download` YAML tag
 
-Another way to use DownloadFile is by specifying `!download` YAML tag. This is the quickest and the simplest way, but it comes with its disadvantages.
+Another way to use DownloadFile is by specifying `!download` YAML tag. This is the quickest and the simplest way, but it comes with a few disadvantages.
 
 Insert the `!download` tag, followed by file URL, in any place in foliant.yml or tag parameters, where file path is expected:
 
