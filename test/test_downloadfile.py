@@ -89,6 +89,11 @@ class TestGetFileNameFromURL(TestCase):
         name = get_file_name_from_url(url)
         self.assertEqual(name, 'myfile')
 
+    def test_with_clutter(self):
+        url = 'http://example.com/sub/myfile.txt?param=val&foo=bar'
+        name = get_file_name_from_url(url)
+        self.assertEqual(name, 'myfile.txt')
+
 
 class TestGetFileExtFromURL(TestCase):
     def test_with_ext(self):
@@ -100,3 +105,8 @@ class TestGetFileExtFromURL(TestCase):
         url = 'http://example.com/sub/myfile'
         ext = get_file_ext_from_url(url)
         self.assertEqual(ext, '')
+
+    def test_with_clutter(self):
+        url = 'http://example.com/sub/myfile.txt?param=val&foo=bar'
+        ext = get_file_ext_from_url(url)
+        self.assertEqual(ext, '.txt')

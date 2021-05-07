@@ -1,5 +1,7 @@
 import shutil
+import logging
 
+from hashlib import md5
 from pathlib import Path
 from unittest import TestCase
 from unittest.mock import patch
@@ -10,6 +12,9 @@ from foliant_test.config_extension import ConfigExtensionTestFramework
 
 from foliant.config.downloadfile import BadConfigException
 from foliant.config.downloadfile import DownloadError
+
+
+logging.disable(logging.CRITICAL)
 
 
 class TestParser(TestCase):
@@ -265,4 +270,22 @@ downloadfile:
 
         self.assertEqual(list(self.project_dir.iterdir()), [self.project_dir / 'file3.txt'])
         with open(self.project_dir / 'file3.txt') as f:
+            self.assertEqual(f.read(), 'File content')
+
+    @patch('foliant.config.downloadfile.urlopen', autospec=True)
+    def test_download_tag(self, urlopen):
+        mock_response = Mock()
+        mock_response.read.return_value = b'File content'
+        urlopen.return_value = mock_response
+
+        url = 'http://example.com/myfile.txt'
+        filename = f'{md5(url.encode()).hexdigest()}.txt'
+        filepath = self.project_dir / '.downloadfilecache' / filename
+
+        source = f'test: !download {url}'
+        expected = {'test': str(filepath.resolve())}
+
+        self.ctf.test_extension(input_config=source, expected_config=expected)
+
+        with open(filepath) as f:
             self.assertEqual(f.read(), 'File content')

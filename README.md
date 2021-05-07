@@ -19,6 +19,7 @@ To configure DownloadFile add the following section to your foliant.yml file:
 ```yaml
 downloadfile:
     fail_fast: true
+    ignore_ssl_errors: false
     queue:
         - url: https://example.com/image.png  # required
           save_to: images/img1.png
@@ -28,8 +29,10 @@ downloadfile:
 ```
 
 `fail_fast`
-:   When `true`, build will be stopped if any file can't be downloaded. If `false` ­— unavailable files will be just skipped. Default: `true`.
+:   When `true`, build will be stopped if any file can't be downloaded. If `false` ­— unavailable files will be just skipped. Doesn't affect `!download` tag, this one will always break the build on errors. Default: `true`.
 
+`ignore_ssl_errors`
+:   Switch to `true` to skip SSL certificate check. Default: `false`.
 
 `queue`
 :   list of files to download. Each file is represented by a dictionary with the following fields:
