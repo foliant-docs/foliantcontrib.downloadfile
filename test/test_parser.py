@@ -1,11 +1,11 @@
-import shutil
 import logging
+import shutil
 
 from hashlib import md5
 from pathlib import Path
 from unittest import TestCase
-from unittest.mock import patch
 from unittest.mock import Mock
+from unittest.mock import patch
 from urllib.error import HTTPError
 
 from foliant_test.config_extension import ConfigExtensionTestFramework

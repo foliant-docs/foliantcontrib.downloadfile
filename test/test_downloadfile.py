@@ -1,12 +1,13 @@
 import shutil
+
 from pathlib import Path
 from unittest import TestCase
-from unittest.mock import patch
 from unittest.mock import Mock
+from unittest.mock import patch
 
 from foliant.config.downloadfile import download_file
-from foliant.config.downloadfile import get_file_name_from_url
 from foliant.config.downloadfile import get_file_ext_from_url
+from foliant.config.downloadfile import get_file_name_from_url
 
 
 class TestDownloadFile(TestCase):
